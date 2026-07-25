@@ -1,76 +1,54 @@
 package midpoint.hud.elements;
 
-import midpoint.font.Fonts;
-import midpoint.hud.HudElement;
-import midpoint.render.ui.RoundedRenderer;
-import midpoint.theme.Theme;
-import midpoint.core.Managers;
-
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.text.Text;
 
+public class Watermark {
 
-public class Watermark extends HudElement {
+    private static final MinecraftClient client = MinecraftClient.getInstance();
 
+    private static final String NAME = "Midpoint Visuals";
 
-    public Watermark() {
-
-        super(
-                "Watermark",
-                10,
-                10
-        );
-
-    }
-
-
-    @Override
-    public void render() {
-
-        MinecraftClient client =
-                MinecraftClient.getInstance();
-
+    public static void render(DrawContext context) {
 
         if (client.player == null) {
             return;
         }
 
+        MatrixStack matrices = context.getMatrices();
 
-        DrawContext context =
-                client.inGameHud.getContext();
+        float x = 6;
+        float y = 6;
 
-
-        Theme theme =
-                Managers.THEME.getCurrentTheme();
-
-
-        String text =
-                "Midpoint Visuals  v0.1.0";
-
-
-        float width =
-                Fonts.DEFAULT.getWidth(text) + 20;
-
-
-        RoundedRenderer.drawRoundedRect(
-                context,
-                getX(),
-                getY(),
-                width,
-                22,
-                8,
-                theme.getSecondaryColor()
+        // Фон
+        context.fill(
+                (int) x,
+                (int) y,
+                (int) x + 120,
+                (int) y + 20,
+                0xAA101010
         );
 
-
-        Fonts.DEFAULT.draw(
-                context,
-                text,
-                getX() + 10,
-                getY() + 7,
-                theme.getPrimaryColor()
+        // Текст
+        context.drawText(
+                client.textRenderer,
+                Text.of(NAME),
+                (int) x + 6,
+                (int) y + 6,
+                0xFFFFFFFF,
+                true
         );
 
+        // Версия
+        context.drawText(
+                client.textRenderer,
+                Text.of("v1.0"),
+                (int) x + 85,
+                (int) y + 6,
+                0xFF9B5CFF,
+                true
+        );
     }
-
 }
