@@ -10,6 +10,9 @@ public class Animation {
 
     private final double speed;
 
+    private Direction direction =
+            Direction.FORWARDS;
+
 
 
     public Animation(double speed) {
@@ -22,7 +25,37 @@ public class Animation {
 
     public void update() {
 
-        value += (target - value) * speed;
+        if (direction == Direction.FORWARDS) {
+
+            value += (target - value) * speed;
+
+        } else {
+
+            value -= value * speed;
+
+        }
+
+
+        if (value < 0) {
+
+            value = 0;
+
+        }
+
+
+        if (value > 1) {
+
+            value = 1;
+
+        }
+
+    }
+
+
+
+    public void setDirection(Direction direction) {
+
+        this.direction = direction;
 
     }
 
@@ -42,5 +75,11 @@ public class Animation {
 
     }
 
+
+    public boolean isFinished() {
+
+        return value == target;
+
+    }
 
 }
