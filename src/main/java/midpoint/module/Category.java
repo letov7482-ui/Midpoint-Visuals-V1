@@ -2,10 +2,11 @@ package midpoint.module;
 
 public enum Category {
 
+    COMBAT,
+    MOVEMENT,
+    PLAYER,
     VISUAL,
-    RENDER,
     HUD,
-    CLIENT,
     MISC
 
 }
