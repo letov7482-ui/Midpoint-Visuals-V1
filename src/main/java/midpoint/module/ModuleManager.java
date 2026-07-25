@@ -5,6 +5,7 @@ import java.util.List;
 
 import midpoint.core.Managers;
 import midpoint.module.impl.visual.ExampleVisual;
+import midpoint.module.impl.visual.Watermark;
 
 
 public class ModuleManager {
@@ -17,6 +18,11 @@ public class ModuleManager {
 
         register(
                 new ExampleVisual()
+        );
+
+
+        register(
+                new Watermark()
         );
 
     }
