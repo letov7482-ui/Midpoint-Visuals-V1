@@ -1,5 +1,7 @@
 package midpoint.hud;
 
+import midpoint.hud.elements.Watermark;
+
 
 public class Huds {
 
@@ -12,7 +14,9 @@ public class Huds {
     public static void initialize() {
 
 
-        // Здесь будут HUD элементы
+        MANAGER.register(
+                new Watermark()
+        );
 
 
     }
