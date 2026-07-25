@@ -4,6 +4,8 @@ package midpoint.hud;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.minecraft.client.gui.DrawContext;
+
 
 public class HudManager {
 
@@ -23,7 +25,9 @@ public class HudManager {
 
 
 
-    public void renderAll() {
+    public void renderAll(
+            DrawContext context
+    ) {
 
 
         for (HudElement element : elements) {
@@ -31,7 +35,7 @@ public class HudManager {
 
             if (element.isEnabled()) {
 
-                element.render();
+                element.render(context);
 
             }
 
