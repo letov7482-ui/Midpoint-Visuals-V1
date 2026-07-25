@@ -3,11 +3,17 @@ package midpoint.module;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class ModuleManager {
 
+    private final List<Module> modules = new ArrayList<>();
 
-    private final List<Module> modules =
-            new ArrayList<>();
+
+    public void initialize() {
+
+        // сюда будем добавлять модули
+
+    }
 
 
     public void register(Module module) {
@@ -26,32 +32,10 @@ public class ModuleManager {
 
     public Module getModule(String name) {
 
-
         for (Module module : modules) {
 
-            if (module.getName()
-                    .equalsIgnoreCase(name)) {
-
+            if (module.getName().equalsIgnoreCase(name)) {
                 return module;
-
-            }
-
-        }
-
-        return null;
-
-    }
-
-
-    public <T extends Module> T getModule(Class<T> clazz) {
-
-
-        for (Module module : modules) {
-
-            if (clazz.isInstance(module)) {
-
-                return clazz.cast(module);
-
             }
 
         }
