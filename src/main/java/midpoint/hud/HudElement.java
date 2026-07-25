@@ -1,5 +1,8 @@
 package midpoint.hud;
 
+import net.minecraft.client.gui.DrawContext;
+
+
 public abstract class HudElement {
 
 
@@ -24,7 +27,7 @@ public abstract class HudElement {
     }
 
 
-    public abstract void render();
+    public abstract void render(DrawContext context);
 
 
     public String getName() {
