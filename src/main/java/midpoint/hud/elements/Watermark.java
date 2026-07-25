@@ -2,6 +2,7 @@ package midpoint.hud.elements;
 
 import midpoint.hud.HudElement;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.text.Text;
 
 public class Watermark extends HudElement {
@@ -19,25 +20,41 @@ public class Watermark extends HudElement {
             return;
         }
 
+        DrawContext context = new DrawContext(
+                client,
+                client.getBufferBuilders().getEntityVertexConsumers()
+        );
+
         int x = (int) getX();
         int y = (int) getY();
 
-        client.inGameHud.getChatHud();
-
-        client.textRenderer.draw(
-                Text.of("Midpoint Visuals"),
+        // фон
+        context.fill(
                 x,
                 y,
+                x + 140,
+                y + 22,
+                0xAA101010
+        );
+
+        // название
+        context.drawText(
+                client.textRenderer,
+                Text.of("Midpoint Visuals"),
+                x + 6,
+                y + 7,
                 0xFFFFFFFF,
-                true,
-                client.getBufferBuilders().getEntityVertexConsumers(),
-                net.minecraft.client.render.VertexConsumerProvider.Immediate.class.cast(
-                        client.getBufferBuilders().getEntityVertexConsumers()
-                ),
-                net.minecraft.client.render.RenderLayer.getGuiTextured(),
-                0,
-                0,
-                0
+                true
+        );
+
+        // версия
+        context.drawText(
+                client.textRenderer,
+                Text.of("v1.0"),
+                x + 105,
+                y + 7,
+                0xFF9B5CFF,
+                true
         );
     }
 }
