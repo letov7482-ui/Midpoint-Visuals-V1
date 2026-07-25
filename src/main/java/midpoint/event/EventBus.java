@@ -9,13 +9,21 @@ public class EventBus {
     private final List<Object> listeners = new ArrayList<>();
 
 
-    public void register(Object object) {
-        listeners.add(object);
+    public void register(Object listener) {
+
+        if (!listeners.contains(listener)) {
+
+            listeners.add(listener);
+
+        }
+
     }
 
 
-    public void unregister(Object object) {
-        listeners.remove(object);
+    public void unregister(Object listener) {
+
+        listeners.remove(listener);
+
     }
 
 
@@ -23,34 +31,33 @@ public class EventBus {
 
         for (Object listener : listeners) {
 
-            Method[] methods = listener.getClass().getDeclaredMethods();
+            for (Method method : listener.getClass().getDeclaredMethods()) {
 
-            for (Method method : methods) {
+                if (method.isAnnotationPresent(Subscribe.class)) {
 
-                if (!method.isAnnotationPresent(Subscribe.class)) {
-                    continue;
-                }
+                    if (method.getParameterCount() == 1 &&
+                            method.getParameterTypes()[0].isAssignableFrom(event.getClass())) {
 
-                if (method.getParameterCount() != 1) {
-                    continue;
-                }
+                        try {
 
-                if (!method.getParameterTypes()[0]
-                        .isAssignableFrom(event.getClass())) {
-                    continue;
-                }
+                            method.setAccessible(true);
 
-                try {
+                            method.invoke(listener, event);
 
-                    method.setAccessible(true);
-                    method.invoke(listener, event);
+                        } catch (Exception e) {
 
-                } catch (Exception exception) {
+                            e.printStackTrace();
 
-                    exception.printStackTrace();
+                        }
+
+                    }
 
                 }
+
             }
+
         }
+
     }
+
 }
