@@ -25,7 +25,7 @@ public class InGameHudMixin {
             CallbackInfo ci
     ) {
 
-        Huds.MANAGER.renderAll();
+        Huds.MANAGER.renderAll(context);
 
     }
 
