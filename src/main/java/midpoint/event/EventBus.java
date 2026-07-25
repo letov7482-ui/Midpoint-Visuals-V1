@@ -4,7 +4,9 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class EventBus {
+
 
     private final List<Object> listeners = new ArrayList<>();
 
@@ -29,20 +31,27 @@ public class EventBus {
 
     public void post(Event event) {
 
+
         for (Object listener : listeners) {
+
 
             for (Method method : listener.getClass().getDeclaredMethods()) {
 
+
                 if (method.isAnnotationPresent(Subscribe.class)) {
 
+
                     if (method.getParameterCount() == 1 &&
-                            method.getParameterTypes()[0].isAssignableFrom(event.getClass())) {
+                            method.getParameterTypes()[0]
+                                    .isAssignableFrom(event.getClass())) {
+
 
                         try {
 
                             method.setAccessible(true);
 
                             method.invoke(listener, event);
+
 
                         } catch (Exception e) {
 
