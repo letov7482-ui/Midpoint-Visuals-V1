@@ -2,6 +2,7 @@ package midpoint.event;
 
 import midpoint.core.manager.Manager;
 
+
 public class EventManager implements Manager {
 
 
