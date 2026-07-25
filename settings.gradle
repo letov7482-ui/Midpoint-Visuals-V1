@@ -10,7 +10,6 @@ pluginManagement {
     }
 }
 
-
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.PREFER_PROJECT)
 
@@ -23,6 +22,5 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-
 
 rootProject.name = "Midpoint-Visuals-V1"
