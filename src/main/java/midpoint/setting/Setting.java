@@ -3,7 +3,6 @@ package midpoint.setting;
 public abstract class Setting<T> {
 
     private final String name;
-
     private T value;
 
 
