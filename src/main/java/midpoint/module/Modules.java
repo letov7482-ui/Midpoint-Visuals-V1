@@ -1,6 +1,9 @@
 package midpoint.module;
 
+import midpoint.module.impl.visual.ExampleVisual;
+
 public class Modules {
+
 
     public static final ModuleManager MANAGER =
             new ModuleManager();
@@ -8,10 +11,13 @@ public class Modules {
 
     public static void initialize() {
 
-        /*
-         * Здесь будут регистрироваться модули
-         */
+
+        MANAGER.register(
+                new ExampleVisual()
+        );
+
 
     }
+
 
 }
