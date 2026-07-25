@@ -3,15 +3,20 @@ package midpoint.module;
 import java.util.ArrayList;
 import java.util.List;
 
+import midpoint.module.impl.visual.ExampleVisual;
+
 
 public class ModuleManager {
+
 
     private final List<Module> modules = new ArrayList<>();
 
 
     public void initialize() {
 
-        // сюда будем добавлять модули
+        register(
+                new ExampleVisual()
+        );
 
     }
 
@@ -30,18 +35,24 @@ public class ModuleManager {
     }
 
 
-    public Module getModule(String name) {
+    public Module getModule(
+            String name
+    ) {
 
         for (Module module : modules) {
 
             if (module.getName().equalsIgnoreCase(name)) {
+
                 return module;
+
             }
 
         }
 
+
         return null;
 
     }
+
 
 }
