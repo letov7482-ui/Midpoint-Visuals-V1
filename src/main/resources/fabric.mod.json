@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "id": "midpoint",
+  "version": "${version}",
+  "name": "Midpoint Visuals",
+  "description": "Modern Visual Client",
+  "authors": [
+    "Midpoint Team"
+  ],
+  "contact": {},
+  "license": "MIT",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "midpoint.MidpointClient"
+    ]
+  },
+  "mixins": [
+    "midpoint.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.15.11",
+    "fabric-api": "*",
+    "minecraft": "1.21.4",
+    "java": ">=21"
+  }
+}
