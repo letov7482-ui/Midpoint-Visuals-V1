@@ -2,24 +2,28 @@ package midpoint.module.impl.visual;
 
 import midpoint.module.Category;
 import midpoint.module.Module;
-import midpoint.module.settings.BooleanSetting;
+import midpoint.setting.BooleanSetting;
+
 
 public class ExampleVisual extends Module {
 
 
-    private final BooleanSetting exampleSetting =
-            new BooleanSetting(
-                    "Example Option",
-                    true
-            );
+    private final BooleanSetting exampleSetting;
 
 
     public ExampleVisual() {
 
         super(
-                "Example Visual",
+                "ExampleVisual",
                 Category.VISUAL
         );
+
+
+        exampleSetting = new BooleanSetting(
+                "Example",
+                true
+        );
+
 
         addSetting(exampleSetting);
 
@@ -27,21 +31,25 @@ public class ExampleVisual extends Module {
 
 
     @Override
-    public void onEnable() {
-
-        System.out.println(
-                "Example Visual enabled"
-        );
+    protected void onEnable() {
 
     }
 
 
     @Override
-    public void onDisable() {
+    protected void onDisable() {
 
-        System.out.println(
-                "Example Visual disabled"
-        );
+    }
+
+
+    @Override
+    public void onRender() {
+
+        if (!exampleSetting.get()) {
+            return;
+        }
+
+        // Здесь позже будет визуал
 
     }
 
