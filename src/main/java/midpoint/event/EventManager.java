@@ -1,6 +1,7 @@
 package midpoint.event;
 
 import midpoint.core.manager.Manager;
+import midpoint.test.TickTest;
 
 
 public class EventManager implements Manager {
@@ -11,6 +12,8 @@ public class EventManager implements Manager {
 
     @Override
     public void initialize() {
+
+        eventBus.register(new TickTest());
 
     }
 
