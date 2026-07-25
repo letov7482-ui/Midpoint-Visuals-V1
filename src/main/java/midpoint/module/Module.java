@@ -1,10 +1,5 @@
 package midpoint.module;
 
-import midpoint.module.settings.Setting;
-
-import java.util.ArrayList;
-import java.util.List;
-
 public abstract class Module {
 
     private final String name;
@@ -12,41 +7,40 @@ public abstract class Module {
 
     private boolean enabled;
 
-    private final List<Setting<?>> settings = new ArrayList<>();
 
-
-    public Module(String name, Category category) {
+    public Module(
+            String name,
+            Category category
+    ) {
 
         this.name = name;
         this.category = category;
+        this.enabled = false;
 
     }
 
 
     public void toggle() {
 
-        setEnabled(!enabled);
+        enabled = !enabled;
+
+        if (enabled) {
+            onEnable();
+        } else {
+            onDisable();
+        }
 
     }
 
 
     public void setEnabled(boolean enabled) {
 
-        if (this.enabled == enabled) {
-            return;
-        }
-
         this.enabled = enabled;
 
-
         if (enabled) {
-
             onEnable();
-
         } else {
-
             onDisable();
-
         }
 
     }
@@ -73,26 +67,22 @@ public abstract class Module {
     }
 
 
-    public void addSetting(Setting<?> setting) {
-
-        settings.add(setting);
+    protected void onEnable() {
 
     }
 
 
-    public List<Setting<?>> getSettings() {
-
-        return settings;
+    protected void onDisable() {
 
     }
 
 
-    public void onEnable() {
+    public void onTick() {
 
     }
 
 
-    public void onDisable() {
+    public void onRender() {
 
     }
 
