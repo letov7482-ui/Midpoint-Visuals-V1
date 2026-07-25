@@ -3,6 +3,8 @@ package midpoint.module;
 import java.util.ArrayList;
 import java.util.List;
 
+import midpoint.event.Subscribe;
+import midpoint.event.events.TickEvent;
 import midpoint.setting.Setting;
 
 
@@ -105,6 +107,18 @@ public abstract class Module {
 
 
     protected void onDisable() {
+
+    }
+
+
+    @Subscribe
+    public void handleTick(TickEvent event) {
+
+        if (enabled) {
+
+            onTick();
+
+        }
 
     }
 
