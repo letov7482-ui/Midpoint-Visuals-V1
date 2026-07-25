@@ -6,7 +6,8 @@ import java.util.List;
 public class ModuleManager {
 
 
-    private final List<Module> modules = new ArrayList<>();
+    private final List<Module> modules =
+            new ArrayList<>();
 
 
     public void register(Module module) {
@@ -23,11 +24,31 @@ public class ModuleManager {
     }
 
 
-    public <T extends Module> T getModule(Class<T> clazz) {
+    public Module getModule(String name) {
+
 
         for (Module module : modules) {
 
-            if (clazz.isAssignableFrom(module.getClass())) {
+            if (module.getName()
+                    .equalsIgnoreCase(name)) {
+
+                return module;
+
+            }
+
+        }
+
+        return null;
+
+    }
+
+
+    public <T extends Module> T getModule(Class<T> clazz) {
+
+
+        for (Module module : modules) {
+
+            if (clazz.isInstance(module)) {
 
                 return clazz.cast(module);
 
@@ -36,6 +57,7 @@ public class ModuleManager {
         }
 
         return null;
+
     }
 
 }
