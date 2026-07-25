@@ -1,27 +1,37 @@
 {
   "schemaVersion": 1,
   "id": "midpoint",
-  "version": "${version}",
+  "version": "0.1.0",
+
   "name": "Midpoint Visuals",
-  "description": "Modern Visual Client",
+  "description": "Modern visual client for Minecraft Fabric 1.21.4",
+
   "authors": [
     "Midpoint Team"
   ],
-  "contact": {},
+
+  "contact": {
+    "homepage": "",
+    "sources": ""
+  },
+
   "license": "MIT",
+
   "environment": "client",
+
   "entrypoints": {
     "client": [
       "midpoint.MidpointClient"
     ]
   },
+
   "mixins": [
     "midpoint.mixins.json"
   ],
+
   "depends": {
     "fabricloader": ">=0.15.11",
-    "fabric-api": "*",
     "minecraft": "1.21.4",
-    "java": ">=21"
+    "fabric-api": "*"
   }
 }
