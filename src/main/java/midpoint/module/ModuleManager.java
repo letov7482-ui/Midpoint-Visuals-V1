@@ -3,6 +3,7 @@ package midpoint.module;
 import java.util.ArrayList;
 import java.util.List;
 
+import midpoint.core.Managers;
 import midpoint.module.impl.visual.ExampleVisual;
 
 
@@ -24,6 +25,11 @@ public class ModuleManager {
     public void register(Module module) {
 
         modules.add(module);
+
+
+        Managers.EVENTS
+                .getEventBus()
+                .register(module);
 
     }
 
