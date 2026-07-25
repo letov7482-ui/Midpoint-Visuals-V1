@@ -1,3 +1,12 @@
+package midpoint.core;
+
+
+import midpoint.event.EventManager;
+import midpoint.hud.Huds;
+import midpoint.module.Modules;
+import midpoint.theme.ThemeManager;
+
+
 public class Managers {
 
 
@@ -7,7 +16,6 @@ public class Managers {
 
     public static final EventManager EVENTS =
             new EventManager();
-
 
 
     public static void initialize() {
@@ -20,7 +28,6 @@ public class Managers {
         Huds.initialize();
 
         Modules.initialize();
-
 
     }
 
