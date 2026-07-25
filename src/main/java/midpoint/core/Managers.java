@@ -1,19 +1,14 @@
 package midpoint.core;
 
-import midpoint.core.manager.ManagerRegistry;
+import midpoint.module.Modules;
 
 public class Managers {
 
-    private static final ManagerRegistry REGISTRY =
-            new ManagerRegistry();
 
     public static void initialize() {
 
-        REGISTRY.initializeAll();
+        Modules.initialize();
 
     }
 
-    public static ManagerRegistry getRegistry() {
-        return REGISTRY;
-    }
 }
