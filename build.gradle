@@ -1,27 +1,23 @@
 plugins {
-    id 'fabric-loom' version '1.9'
-    id 'maven-publish'
+    id 'fabric-loom' version '1.9-SNAPSHOT'
+    id 'java'
 }
 
-
-version = "0.1.0"
-group = "midpoint"
-
+group = "me.midpoint"
+version = "1.0.0"
 
 base {
     archivesName = "midpoint-visuals"
 }
 
-
 repositories {
-
     maven {
         name = "Fabric"
         url = "https://maven.fabricmc.net/"
     }
 
+    mavenCentral()
 }
-
 
 dependencies {
 
@@ -32,47 +28,17 @@ dependencies {
     modImplementation "net.fabricmc:fabric-loader:0.16.9"
 
     modImplementation "net.fabricmc.fabric-api:fabric-api:0.119.0+1.21.4"
-
-}
-
-
-processResources {
-
-    inputs.property "version", project.version
-
-    filesMatching("fabric.mod.json") {
-
-        expand "version": project.version
-
-    }
-
 }
 
 
 java {
-
     toolchain {
-
         languageVersion = JavaLanguageVersion.of(21)
-
     }
-
 }
 
 
 tasks.withType(JavaCompile).configureEach {
-
-    it.options.release = 21
-
-}
-
-
-jar {
-
-    from("LICENSE") {
-
-        into ""
-
-    }
-
+    options.encoding = "UTF-8"
+    options.release = 21
 }
