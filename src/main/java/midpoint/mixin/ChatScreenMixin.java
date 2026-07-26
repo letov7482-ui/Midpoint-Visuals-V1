@@ -1,5 +1,6 @@
 package midpoint.mixin;
 
+
 import midpoint.hud.HudEditor;
 
 import net.minecraft.client.gui.screen.ChatScreen;
@@ -15,23 +16,23 @@ public class ChatScreenMixin {
 
 
     @Inject(
-        method = "init",
-        at = @At("TAIL")
+            method = "init",
+            at = @At("TAIL")
     )
-    private void openHudEditor(CallbackInfo ci){
+    private void openEditor(CallbackInfo ci) {
 
-        HudEditor.setEditing(true);
+        HudEditor.enable();
 
     }
 
 
     @Inject(
-        method = "close",
-        at = @At("TAIL")
+            method = "removed",
+            at = @At("TAIL")
     )
-    private void closeHudEditor(CallbackInfo ci){
+    private void closeEditor(CallbackInfo ci) {
 
-        HudEditor.setEditing(false);
+        HudEditor.disable();
 
     }
-  }
+}
