@@ -25,6 +25,8 @@ public class InGameHudMixin {
             CallbackInfo ci
     ) {
 
+        System.out.println("Midpoint HUD Render");
+
         Huds.MANAGER.renderAll(context);
 
     }
