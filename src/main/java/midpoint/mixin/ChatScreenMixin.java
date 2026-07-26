@@ -1,58 +1,83 @@
 package midpoint.mixin;
 
-
 import midpoint.hud.HudEditor;
-import midpoint.hud.config.HudConfig;
-
 
 import net.minecraft.client.gui.screen.ChatScreen;
 
-
 import org.spongepowered.asm.mixin.Mixin;
-
 import org.spongepowered.asm.mixin.injection.At;
-
 import org.spongepowered.asm.mixin.injection.Inject;
-
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
 
 
 @Mixin(ChatScreen.class)
 public class ChatScreenMixin {
 
 
+    private static final HudEditor HUD_EDITOR =
+            new HudEditor();
+
+
 
     @Inject(
-            method = "init",
-            at = @At("TAIL")
+            method = "mouseClicked",
+            at = @At("HEAD")
     )
-    private void openEditor(CallbackInfo ci) {
+    private void onMouseClicked(
+            double mouseX,
+            double mouseY,
+            int button,
+            CallbackInfo ci
+    ) {
 
 
-        HudEditor.enable();
-
+        HUD_EDITOR.mouseClicked(
+                mouseX,
+                mouseY,
+                button
+        );
 
     }
 
 
 
-
-
     @Inject(
-            method = "removed",
-            at = @At("TAIL")
+            method = "mouseDragged",
+            at = @At("HEAD")
     )
-    private void closeEditor(CallbackInfo ci) {
+    private void onMouseDragged(
+            double mouseX,
+            double mouseY,
+            int button,
+            double deltaX,
+            double deltaY,
+            CallbackInfo ci
+    ) {
 
 
-        HudEditor.disable();
-
-
-        HudConfig.save();
-
+        HUD_EDITOR.mouseDragged(
+                mouseX,
+                mouseY
+        );
 
     }
 
+
+
+    @Inject(
+            method = "mouseReleased",
+            at = @At("HEAD")
+    )
+    private void onMouseReleased(
+            double mouseX,
+            double mouseY,
+            int button,
+            CallbackInfo ci
+    ) {
+
+
+        HUD_EDITOR.mouseReleased();
+
+    }
 
 }
