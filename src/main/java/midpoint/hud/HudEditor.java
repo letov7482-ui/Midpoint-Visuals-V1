@@ -1,74 +1,130 @@
 package midpoint.hud;
 
-import midpoint.hud.element.HudElement;
+import net.minecraft.client.MinecraftClient;
+
 
 public class HudEditor {
 
-    private static boolean editing = false;
 
-    private static HudElement dragging;
-
-    private static float offsetX;
-    private static float offsetY;
+    private boolean dragging = false;
 
 
-    public static void enable() {
-        editing = true;
-    }
+    private HudElement selected;
 
 
-    public static void disable() {
-        editing = false;
-        dragging = null;
-    }
+    private float offsetX;
+    private float offsetY;
 
 
-    public static boolean isEditing() {
-        return editing;
-    }
+
+    public void mouseClicked(
+            double mouseX,
+            double mouseY,
+            int button
+    ) {
 
 
-    public static void mouseClicked(double mouseX, double mouseY) {
-
-        if (!editing)
+        if (button != 0) {
             return;
+        }
 
 
-        for (HudElement element : Huds.MANAGER.getElements()) {
 
-            if (mouseX >= element.getX()
-                    && mouseX <= element.getX() + 150
-                    && mouseY >= element.getY()
-                    && mouseY <= element.getY() + 20) {
+        for (HudElement element :
+                Huds.MANAGER.getElements()) {
 
 
-                dragging = element;
+            float x = element.getX();
+            float y = element.getY();
 
-                offsetX = (float) mouseX - element.getX();
-                offsetY = (float) mouseY - element.getY();
+
+
+            if (isInside(
+                    mouseX,
+                    mouseY,
+                    x,
+                    y,
+                    170,
+                    45
+            )) {
+
+
+                selected = element;
+
+                dragging = true;
+
+
+                offsetX =
+                        (float) mouseX - x;
+
+
+                offsetY =
+                        (float) mouseY - y;
+
 
                 break;
+
             }
+
         }
+
     }
 
 
-    public static void mouseDragged(double mouseX, double mouseY) {
 
-        if (dragging == null)
+
+
+    public void mouseDragged(
+            double mouseX,
+            double mouseY
+    ) {
+
+
+        if (!dragging || selected == null) {
             return;
+        }
 
 
-        dragging.setPosition(
+
+        selected.setPosition(
                 (float) mouseX - offsetX,
                 (float) mouseY - offsetY
         );
+
+    }
+
+
+
+
+
+    public void mouseReleased() {
+
+        dragging = false;
+
+        selected = null;
+
     }
 
 
-    public static void mouseReleased() {
 
-        dragging = null;
+
+
+    private boolean isInside(
+            double mouseX,
+            double mouseY,
+            float x,
+            float y,
+            float width,
+            float height
+    ) {
+
+
+        return mouseX >= x &&
+                mouseX <= x + width &&
+                mouseY >= y &&
+                mouseY <= y + height;
 
     }
+
+
 }
