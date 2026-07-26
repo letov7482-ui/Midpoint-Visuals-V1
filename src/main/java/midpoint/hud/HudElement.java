@@ -1,40 +1,80 @@
 package midpoint.hud;
 
-import midpoint.hud.setting.HudPosition;
 import net.minecraft.client.gui.DrawContext;
+
 
 public abstract class HudElement {
 
-    private final HudPosition position;
+
+    private final String name;
+
+
     private boolean enabled = true;
 
-    public HudElement(float x, float y) {
-        this.position = new HudPosition(x, y);
+
+
+    public HudElement(
+            String name
+    ) {
+
+        this.name = name;
+
     }
 
-    public abstract void render(DrawContext context);
 
-    public float getX() {
-        return position.getX();
+
+    public String getName() {
+
+        return name;
+
     }
 
-    public float getY() {
-        return position.getY();
-    }
 
-    public void setPosition(float x, float y) {
-        position.setPosition(x, y);
-    }
-
-    public HudPosition getPosition() {
-        return position;
-    }
 
     public boolean isEnabled() {
+
         return enabled;
+
     }
 
-    public void setEnabled(boolean enabled) {
+
+
+    public void setEnabled(
+            boolean enabled
+    ) {
+
         this.enabled = enabled;
+
     }
+
+
+
+    /*
+     * Главный метод рендера
+     */
+    public abstract void render(
+            DrawContext context
+    );
+
+
+
+    /*
+     * Позиция HUD
+     */
+
+    public abstract float getX();
+
+
+
+    public abstract float getY();
+
+
+
+    public abstract void setPosition(
+            float x,
+            float y
+    );
+
+
+
 }
