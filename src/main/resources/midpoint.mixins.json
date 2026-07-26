@@ -4,8 +4,7 @@
   "compatibilityLevel": "JAVA_21",
   "client": [
     "InGameHudMixin",
-    "ChatScreenMixin",
-    "MouseMixin"
+    "ChatScreenMixin"
   ],
   "injectors": {
     "defaultRequire": 1
