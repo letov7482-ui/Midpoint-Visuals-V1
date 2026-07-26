@@ -3,7 +3,9 @@
   "package": "midpoint.mixin",
   "compatibilityLevel": "JAVA_21",
   "client": [
-    "InGameHudMixin"
+    "InGameHudMixin",
+    "ChatScreenMixin",
+    "MouseMixin"
   ],
   "injectors": {
     "defaultRequire": 1
