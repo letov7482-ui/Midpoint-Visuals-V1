@@ -2,9 +2,10 @@ name: Build Midpoint Visuals
 
 on:
   push:
-    branches:
-      - main
-
+    branches: [ "main" ]
+    tags: [ "v*" ]
+  pull_request:
+    branches: [ "main" ]
   workflow_dispatch:
 
 jobs:
@@ -15,33 +16,58 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Unzip project archive
+        run: |
+          ZIP_FILE=$(find . -maxdepth 1 -iname "*.zip" | head -n 1)
+          if [ -z "$ZIP_FILE" ]; then
+            echo "No .zip file found at repo root, assuming sources are already unpacked."
+            exit 0
+          fi
+          echo "Found archive: $ZIP_FILE"
+          mkdir -p _extracted
+          unzip -o "$ZIP_FILE" -d _extracted
 
-      - name: Setup Java 21
+          # If the zip contains a single top-level folder (e.g. midpoint-visuals/),
+          # move its contents up so build.gradle ends up at repo root.
+          ENTRIES=$(ls _extracted)
+          COUNT=$(echo "$ENTRIES" | wc -l)
+          if [ "$COUNT" -eq 1 ] && [ -d "_extracted/$ENTRIES" ]; then
+            cp -r "_extracted/$ENTRIES/." .
+          else
+            cp -r _extracted/. .
+          fi
+          rm -rf _extracted
+
+      - name: Set up JDK 21
         uses: actions/setup-java@v4
         with:
+          distribution: 'microsoft'
           java-version: '21'
-          distribution: 'temurin'
 
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: "8.10"
 
-      - name: Extract Gradle Wrapper
-        run: |
-          if [ -f gradle.zip ]; then
-            unzip -o gradle.zip
-          fi
+      - name: Generate Gradle wrapper
+        run: gradle wrapper --gradle-version 8.10
 
-
-      - name: Give permission to Gradle
-        run: |
-          chmod +x gradlew
-
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
 
       - name: Build with Gradle
-        run: |
-          ./gradlew build
+        run: ./gradlew build --stacktrace
 
-
-      - name: Upload build artifact
+      - name: Upload build artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: midpoint-visuals-build
+          name: midpoint-visuals-jars
           path: build/libs/*.jar
+          if-no-files-found: error
+
+      - name: Create GitHub Release
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: build/libs/*.jar
+          generate_release_notes: true
